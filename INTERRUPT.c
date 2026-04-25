@@ -1,0 +1,72 @@
+
+#include "STD_TYPES.h"
+#include "INTERRUPT.h"
+#include "LCD.h"
+#define F_CPU 8000000UL
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include "GPIO_interface.h"
+
+static void *( INT0_CallBack)(void)=0;
+static void *( INT1_CallBack)(void)=0;
+
+INT_PIN0 (u8 sense){
+    SetPinDirection(GPIO_PORTD,GPIO_PIN2,GPIO_INPUT);
+    SetPinDirection(GPIO_PORTD,GPIO_PIN2,GPIO_HIGH);
+
+    EICRA &=~(0x03);
+    
+    EICRA |=(sense<<ISC00) ;
+}
+
+ INT_PIN0_Enable (void){
+     EIMSK=(1<<INT0);
+ }
+
+ 
+ INT_PIN0_CallBack (void (*ptr)(void)){
+     INT0_CallBack=ptr;}
+ 
+ 
+ INT_PIN1 (u8 sense){
+    SetPinDirection(GPIO_PORTD,GPIO_PIN3,GPIO_INPUT);
+        SetPinDirection(GPIO_PORTD,GPIO_PIN3,GPIO_HIGH);
+            EICRA &=~(0x0C);
+    
+    EICRA |=(sense<<ISC10) ;
+
+
+ }
+
+ 
+ 
+  INT_PIN1_Enable (void){
+      SET_BIT(EIMSK,1);
+  }
+
+  
+  
+  void INT_PIN1_CallBack (void (*ptr)(void)){
+      
+INT1_CallBack=ptr;}
+  
+  
+  
+   INT_GLBL_ENABLE(void){
+       SET_BIT(SREG,7);
+   }
+
+      INT_GLBL_DISABLE(void){
+       CLR_BIT(SREG,7);
+   }
+
+      
+      ISR(INT0_vect){
+          if(INT0_CallBack!=0){
+              INT0_CallBack();}}
+      
+      
+      
+            ISR(INT1_vect){
+          if(INT1_CallBack!=0){
+              INT1_CallBack();}}

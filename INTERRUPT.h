@@ -1,32 +1,23 @@
-#ifndef INTURRUPT_H
-#define INTURRUPT_H
-#include "GPIO_interface.h"
+#ifndef INTERRUPT_H
+#define INTERRUPT_H
 
-#include <avr/io.h>
+#include "STD_TYPES.h"
 
+#define LOW_LEVEL 0
+#define ANY_CHANGE 1
+#define RISING 2
+#define FALLING 3
 
-#define INT_LOW 0
-#define INT_AnyChange 1
-#define INT_RisingEdge 2
-#define INT_FallingEdge 3
+void INT0_Init(u8 sense);
+void INT1_Init(u8 sense);
 
+void INT0_Enable(void);
+void INT1_Enable(void);
 
+void INT0_SetCallback(void (*cb)(void));
+void INT1_SetCallback(void (*cb)(void));
 
-
-void INT_PIN0 (u8 sense);
-void INT_PIN1 (u8 sense);
-
-
-void INT_PIN0_Enable (void);
-void INT_PIN1_Enable (void);
-
-
-void INT_PIN0_CallBack (void (*ptr)(void));
-void INT_PIN1_CallBack (void (*ptr)(void));
-
-
-
-void INT_GLBL_ENABLE(void);
-void INT_GLBL_DISABLE(void);
+void GLOBAL_INT_Enable(void);
+void GLOBAL_INT_Disable(void);
 
 #endif
