@@ -1,38 +1,52 @@
-#ifndef ADC_H
-#define ADC_H
+/****************************************************/ 
+/*  File Name     : ADC_interface.h                  */
+/*  Target        : ATmega328P                       */
+/****************************************************/
+
+#ifndef ADC_INTERFACE_H
+#define ADC_INTERFACE_H
 
 #include "STD_TYPES.h"
 
-#define ADC_REF_AREF 0
-#define ADC_REF_AVCC 1
-#define ADC_REF_INTERNAL 2
+/* ========== Reference Voltage ========== */
+#define ADC_REF_AREF            0
+#define ADC_REF_AVCC            1
+#define ADC_REF_INTERNAL_1V1    2   /* FIXED */
 
-#define ADC_PRESCALER_2   1
-#define ADC_PRESCALER_4   2
-#define ADC_PRESCALER_8   3
-#define ADC_PRESCALER_16  4
-#define ADC_PRESCALER_32  5
-#define ADC_PRESCALER_64  6
-#define ADC_PRESCALER_128 7
+/* ========== ADC Resolution ========== */
+#define ADC_RESOLUTION_10BIT    0
+#define ADC_RESOLUTION_8BIT     1
 
-#define ADC_RES_10BIT 0
-#define ADC_RES_8BIT  1
+/* ========== ADC Prescaler ========== */
+#define ADC_PRESCALER_2         1
+#define ADC_PRESCALER_4         2
+#define ADC_PRESCALER_8         3
+#define ADC_PRESCALER_16        4
+#define ADC_PRESCALER_32        5
+#define ADC_PRESCALER_64        6
+#define ADC_PRESCALER_128       7
 
-#define ADC_CH0 0
-#define ADC_CH1 1
-#define ADC_CH2 2
-#define ADC_CH3 3
-#define ADC_CH4 4
-#define ADC_CH5 5
-#define ADC_CH6 6
-#define ADC_CH7 7
+/* ========== ADC Channels (ONLY 0 ? 5) ========== */
+#define ADC_CHANNEL_0           0
+#define ADC_CHANNEL_1           1
+#define ADC_CHANNEL_2           2
+#define ADC_CHANNEL_3           3
+#define ADC_CHANNEL_4           4
+#define ADC_CHANNEL_5           5
 
-void ADC_Init(u8 ref, u8 prescaler, u8 res);
-u16 ADC_Read10(u8 ch);
-u8 ADC_Read8(u8 ch);
+/* ========== APIs ========== */
 
-void ADC_EnableInterrupt(void);
-void ADC_DisableInterrupt(void);
-void ADC_SetCallback(void (*cb)(void));
+void ADC_VidInit(u8 Copy_u8Ref,
+                 u8 Copy_u8Prescaler,
+                 u8 Copy_u8Resolution);
+
+/* Polling APIs */
+u16 ADC_U16ReadChannel(u8 Copy_u8Channel);
+u8  ADC_U8ReadChannel(u8 Copy_u8Channel);
+
+/* Interrupt APIs */
+void ADC_VidEnableInterrupt(void);
+void ADC_VidDisableInterrupt(void);
+void ADC_VidSetCallBack(void (*ptr)(void));
 
 #endif

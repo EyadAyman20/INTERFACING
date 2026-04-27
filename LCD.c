@@ -7,7 +7,7 @@ static void LCD_EnablePulse(void);
 
 void LCD_Init(void)
 {
-    GPIO_VidSetPortDirection(LCD_DATA_PORT, GPIO_PORT_OUTPUT);
+    GPIO_VidSetPortDirection(LCD_DATA_PORT, GPIO_ALL_OUTPUT);
 
     GPIO_VidSetPinDirection(LCD_CTRL_PORT, LCD_RS_PIN, GPIO_OUTPUT);
     GPIO_VidSetPinDirection(LCD_CTRL_PORT, LCD_RW_PIN, GPIO_OUTPUT);

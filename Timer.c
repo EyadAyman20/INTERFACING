@@ -1,69 +1,70 @@
-#include "TIMER_INTERFACE.h"
+#include "TIMER_interface.h"
 #include "GPIO.h"
-#include "INTERRUPT.h"
+#include "EXT_INTERRUPT_interface.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
 
-void TIMER0_VidInit(u8 mode)
+void TIMER_VidInit(u8 mode)
 {
 	switch(mode)
 	{
-		case TIMER_MODE_NORMAL:
-			CLR_BIT(TCCR0 , WGM01);
-			CLR_BIT(TCCR0 , WGM00);
+		case TIMER_NORMAL_MODE:
+			CLR_BIT(TCCR0A , WGM01);
+			CLR_BIT(TCCR0A , WGM00);
 		break;
 
-		case TIMER_MODE_CTC:
-			SET_BIT(TCCR0 , WGM01);
-			CLR_BIT(TCCR0 , WGM00);
+		case TIMER_CTC_MODE:
+            CLR_BIT(TCCR0B , WGM02);
+			SET_BIT(TCCR0A , WGM01);
+			CLR_BIT(TCCR0A , WGM00);
 		break;
 	}
 }
 
 
-void TIMER0_VidStart(u8 clock)
+void TIMER_VidStart(u8 clock)
 {
 	
-	TCCR0 &= 0xF8;
+	TCCR0B &= 0xF8;
 
 	
-	TCCR0 |= clock;
+	TCCR0B |= clock;
 }
 
 
  
-void TIMER0_VidStop(void)
+void TIMER_VidStop(void)
 {
-	CLR_BIT(TCCR0 , CS00);
-	CLR_BIT(TCCR0 , CS01);
-	CLR_BIT(TCCR0 , CS02);
+	CLR_BIT(TCCR0B , CS00);
+	CLR_BIT(TCCR0B , CS01);
+	CLR_BIT(TCCR0B , CS02);
 }
 
 
-void TIMER0_VidSetPreload(u8 value)
+void TIMER_VidSetPreload(u8 value)
 {
 	TCNT0 = value;
 }
 
 
-void TIMER0_VidSetCompareMatch(u8 value)
+void TIMER_VidSetCompareMatch(u8 value)
 {
-	OCR0 = value;
+	OCR0A = value;
 }
 
-void TIMER0_VidEnableOverflowInterrupt(void)
+void TIMER_VidEnableOverflowInterrupt(void)
 {
 	sei();
-	SET_BIT(TIMSK , TOIE0);
+	SET_BIT(TIMSK0 , TOIE0);
 }
-void TIMER0_VidEnableCTCInterrupt(void)
+void TIMER_VidEnableCTCInterrupt(void)
 {
 	sei();
-	SET_BIT(TIMSK , OCIE0);
+	SET_BIT(TIMSK0 , OCIE0A);
 }
-void TIMER0_VidDisableInterrupt(void)
+void TIMER_VidDisableInterrupt(void)
 {
-	CLR_BIT(TIMSK , TOIE0);
-	CLR_BIT(TIMSK , OCIE0);
+	CLR_BIT(TIMSK0 , TOIE0);
+	CLR_BIT(TIMSK0 , OCIE0A);
 }
