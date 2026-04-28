@@ -16,6 +16,7 @@
 #include "BIT_MATH.h"
 #include "LCD.h"
 #include "TIMER_interface.h"
+#include "ADC.h"
 
 
 #endif	/* INCLDE_H */

@@ -1,4 +1,3 @@
-#include <util/delay.h>
 
 #include "LCD.h"
 
@@ -12,7 +11,7 @@ void LCD_Init(void)
     GPIO_VidSetPinDirection(LCD_CTRL_PORT, LCD_RW_PIN, GPIO_OUTPUT);
     GPIO_VidSetPinDirection(LCD_CTRL_PORT, LCD_EN_PIN, GPIO_OUTPUT);
 
-    _delay_ms(40);
+    TIMER_VidDelay_ms(40);
 
     LCD_SendCommand(LCD_8BIT_MODE);
     LCD_SendCommand(LCD_ON);
@@ -58,13 +57,13 @@ void LCD_SetCursor(u8 row, u8 col)
 void LCD_Clear(void)
 {
     LCD_SendCommand(LCD_CLEAR);
-    _delay_ms(2);
+    TIMER_VidDelay_ms(2);
 }
 
 static void LCD_EnablePulse(void)
 {
     GPIO_VidSetPinValue(LCD_CTRL_PORT, LCD_EN_PIN, GPIO_HIGH);
-    _delay_us(2);
+    TIMER_VidDelay_ms(2);
     GPIO_VidSetPinValue(LCD_CTRL_PORT, LCD_EN_PIN, GPIO_LOW);
-    _delay_ms(2);
+    TIMER_VidDelay_ms(2);
 }

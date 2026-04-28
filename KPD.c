@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "KPD.h"
-#include <util/delay.h>
+#include "TIMER_interface.h"
 
 void KPD_VoidInit(void)
 {
@@ -26,12 +26,12 @@ u8 KPD_U8GetPressedKey(void)
     for (u8 i = 0 ; i < KPD_COLNum; i++)
     {
         GPIO_VidSetPinValue(KPD_Port , Loc_U8KPDColArr[i] , GPIO_LOW);
-        _delay_us(5);
+        TIMER_VidDelay_ms(5);
         for (u8 j = 0 ; j < KPD_ROWNum; j++)
         {
             if(GPIO_U8GetPinValue(KPD_Port, Loc_U8KPDRowArr[j]) == GPIO_LOW)
             {
-                _delay_ms(20);
+                TIMER_VidDelay_ms(20);
                 
             if(GPIO_U8GetPinValue(KPD_Port, Loc_U8KPDRowArr[j]) == GPIO_LOW)
                 {

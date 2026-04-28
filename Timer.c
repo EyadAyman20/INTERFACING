@@ -1,4 +1,4 @@
-#define F_CPU 1000000UL
+#define F_CPU 8000000UL
 
 #include "TIMER_interface.h"
 #include "GPIO.h"
@@ -141,7 +141,7 @@ void TIMER_VidDelay_ms(u32 delay)
 
 /* ========== PWM ========== */
 
-void TIMER0_VidInitPWM(u8 mode, u8 oc_mode)
+void TIMER_VidInitPWM(u8 mode, u8 oc_mode)
 {
     GPIO_VidSetPinDirection(GPIO_PORTD, GPIO_PIN6, GPIO_OUTPUT);
 
@@ -171,7 +171,7 @@ void TIMER0_VidInitPWM(u8 mode, u8 oc_mode)
 
 /* ========== DUTY ========== */
 
-void TIMER0_VidSetPWMDuty(u8 duty)
+void TIMER_VidSetPWMDuty(u8 duty)
 {
     if (duty <= 100)
     {

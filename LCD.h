@@ -4,14 +4,15 @@
 #include "STD_TYPES.h"
 #include "GPIO.h"
 #include "Includes.h"
+#include "TIMER_interface.h"
 
 /* Config */
-#define LCD_DATA_PORT   GPIO_PORTB
+#define LCD_DATA_PORT   GPIO_PORTD
 #define LCD_CTRL_PORT   GPIO_PORTC
 
-#define LCD_RS_PIN      GPIO_PIN0
-#define LCD_RW_PIN      GPIO_PIN1
-#define LCD_EN_PIN      GPIO_PIN2
+#define LCD_RS_PIN      GPIO_PIN5
+#define LCD_RW_PIN      GPIO_PIN6
+#define LCD_EN_PIN      GPIO_PIN4
 
 /* Commands */
 #define LCD_CLEAR        0x01
