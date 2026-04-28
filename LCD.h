@@ -2,7 +2,8 @@
 #define LCD_H
 
 #include "STD_TYPES.h"
-#include "GPIO_interface.h"
+#include "GPIO.h"
+#include "Includes.h"
 
 /* Config */
 #define LCD_DATA_PORT   GPIO_PORTB
